@@ -4,7 +4,6 @@ import RecentExpenses from "@/screens/RecentExpenses";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 
 const Stack = createNativeStackNavigator();
@@ -25,7 +24,6 @@ function ExpensesOverview() {
 export default function HomeScreen() {
   return (
     <>
-      <StatusBar style="auto" />;
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="ManageExpenses" component={ManageExpenses} />

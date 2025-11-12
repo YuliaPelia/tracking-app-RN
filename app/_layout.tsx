@@ -63,7 +63,7 @@ function ExpensesOverview() {
 export default function RootLayout() {
   return (
     <>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       {/* <NavigationContainer> */}
       <ExpensesContextProvider>
       <Stack.Navigator
