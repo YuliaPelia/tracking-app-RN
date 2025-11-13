@@ -1,9 +1,9 @@
 import { GlobalStyles } from "@/constants/styles";
 import { ExpensesContext } from "@/store/expenses-context";
-import Button from "@/ui/Button";
 import IconButton from "@/ui/IconButton";
 import { useContext, useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
 function ManageExpense({ route, navigation }) {
   const expensesCtx = useContext(ExpensesContext);
@@ -27,35 +27,23 @@ function ManageExpense({ route, navigation }) {
     navigation.goBack();
   }
 
-  function confirmHandler() {
-    console.log(isEditing);
-
+  function confirmHandler(expenseData) {
     if (isEditing) {
-      expensesCtx.updateExpense(expenseId, {
-        description: "Test!!!",
-        amount: 19.99,
-        date: new Date("2022-05-19"),
-      });
+      expensesCtx.updateExpense(expenseId, expenseData);
     } else {
-      expensesCtx.addExpense( {
-        description: "Test!!!",
-        amount: 19.99,
-        date: new Date("2022-05-19"),
-      });
+      expensesCtx.addExpense(expenseData);
     }
     navigation.goBack();
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttons}>
-        <Button style={styles.button} mode="flat" onPress={cancelHandler}>
-          Cancel
-        </Button>
-        <Button style={styles.button} onPress={confirmHandler}>
-          {isEditing ? "Update" : "Add"}
-        </Button>
-      </View>
+      <ExpenseForm
+        onCancel={cancelHandler}
+        submitButtonLabel={isEditing ? "Update" : "Add"}
+        onSubmit={confirmHandler}
+      />
+
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
@@ -83,15 +71,6 @@ const styles = StyleSheet.create({
     padding: 8,
     borderTopWidth: 2,
     borderTopColor: GlobalStyles.colors.primary200,
-    alignItems: "center",
-  },
-  button: {
-    minWidth: 120,
-    marginHorizontal: 8,
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
   },
 });
